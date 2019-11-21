@@ -1,10 +1,13 @@
 package gov.healthit.chpl.aqa.stepDefinitions;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -24,6 +27,13 @@ import org.openqa.selenium.support.events.WebDriverEventListener;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 
+
+
+/**
+ * 		11/21/2019	Palak Patel	: Placing chromdriver.exe in project and refactoring code accordingly
+ */
+
+
 /**
  * Class Hooks definition.
  */
@@ -34,7 +44,7 @@ public class Hooks {
     private static final int DELAY = 30;
     private static String screenshotPath;
     private static String downloadPath = System.getProperty("downloadPath");
-
+         
     /**
      * Launch ChromeDriver.
      */
@@ -47,20 +57,9 @@ public class Hooks {
         driver = new ChromeDriver(chromeOptions);
         driver.manage().window().maximize(); // does not work on CI machine, sometimes useful locally
          */
-        if (StringUtils.isEmpty(downloadPath)) {
-            String tempDirectory;
-            try {
-                tempDirectory = Files.createTempDirectory("download-files").toString();
-                // Print the path to the newly created directory
-            } catch (final IOException e) {
-                // If temp directory creation failed, create new directory in target folder
-                // user.dir - User working directory, make new directories in user's working directory
-                File file = new File("target", "download-files");
-                file.mkdirs();
-                tempDirectory = System.getProperty("user.dir") + File.separator + "target" + File.separator + "download-files";
-            }
-            downloadPath = tempDirectory;
-        }
+
+        downloadPath = System.getProperty("user.dir") + File.separator;
+
         dir = new File(downloadPath);
         if (!dir.exists()) {
             dir.mkdirs();
@@ -98,6 +97,8 @@ public class Hooks {
         };
         driver.register(errorListener);
     }
+    
+   
 
     /**
      * Close browser windows and terminate WebDriver session.

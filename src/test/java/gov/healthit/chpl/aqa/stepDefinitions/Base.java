@@ -1,25 +1,33 @@
 package gov.healthit.chpl.aqa.stepDefinitions;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 import java.util.TimeZone;
+import gov.healthit.chpl.aqa.stepDefinitions.Hooks;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * 		11/21/2019	Palak Patel	: Using properties file
+ */	
+
 /** Base class for step definition files. */
 public class Base {
     private EventFiringWebDriver driver;
     private WebDriverWait wait;
-    private String url = System.getProperty("url");
+    private String url; 
     private String filePath = System.getProperty("filePath");
-    private String apikey = System.getProperty("apikey");
+    private String apikey; 
     protected static final long TIMEOUT = 30;
     protected static final long LONG_TIMEOUT = 120;
     private static final int MAX_RETRYCOUNT = 8;
@@ -27,14 +35,21 @@ public class Base {
     protected static final int SLEEP_TIME = 5000;
     protected static final int DEBOUNCE_TIME = 500;
     protected static final String CHARS = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static Properties prop= new Properties();
+    
     /** Default constructor. */
     public Base() {
         super();
         this.driver = Hooks.getDriver();
         this.setWait(new WebDriverWait(this.driver, TIMEOUT));
-        if (StringUtils.isEmpty(this.url)) {
-            this.setUrl("http://localhost:3000/");
-        }
+        FileInputStream fs;
+		try {
+			fs = new FileInputStream(System.getProperty("user.dir") + File.separator + "prop.properties");
+			prop.load(fs);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        this.setUrl(prop.getProperty("url"));
         if (StringUtils.isEmpty(this.filePath)) {
             String tempDirectory = System.getProperty("user.dir") + File.separator + "src" + File.separator + "test" + File.separator + "resources";
             this.setFilePath(tempDirectory);
@@ -58,7 +73,7 @@ public class Base {
     }
 
     public String getUrl() {
-        return url;
+        return prop.getProperty("url");
     }
 
     public void setUrl(final String url) {
@@ -74,7 +89,7 @@ public class Base {
     }
 
     public String getApikey() {
-        return apikey;
+        return prop.getProperty("apikey");
     }
 
     public void setApikey(final String apikey) {

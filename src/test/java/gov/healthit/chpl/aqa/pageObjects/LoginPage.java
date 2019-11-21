@@ -5,6 +5,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 /**
+ * 		11/21/2019	Palak Patel	: Removed and updated welcome Text webelement
+ */	
+
+/**
  * Class LoginPage definition.
  */
 public final class LoginPage extends BasePage {
@@ -43,8 +47,8 @@ public final class LoginPage extends BasePage {
      * @param driver WebDriver
      * @return returns element that holds welcome text
      */
-    public static WebElement welcomeText(final WebDriver driver) {
-        element = driver.findElement(By.xpath("/html/body/ai-compare-widget/div[2]/div/section/div[1]/div/h1"));
+    public static WebElement loggedinUserName(final WebDriver driver) {
+        element = driver.findElement(By.id("login-toggle"));
         return element;
     }
     /**
