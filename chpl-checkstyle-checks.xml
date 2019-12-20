@@ -17,7 +17,7 @@
 <module name="Checker">
     <!-- If you set the basedir property below, then all reported file names 
         will be relative to the specified directory. See http://checkstyle.sourceforge.net/5.x/config.html#Checker 
-        <property name="basedir" value="${basedir}"/> -->
+        <property name="severity" value="warning"/> -->
 
     <property name="fileExtensions" value="java, properties, xml" />
 
@@ -54,35 +54,7 @@
         <property name="message" value="Line has trailing spaces." />
     </module>
 
-    <!-- Checks for Headers -->
-    <!-- See http://checkstyle.sf.net/config_header.html -->
-    <!-- <module name="Header"> -->
-    <!-- <property name="headerFile" value="${checkstyle.header.file}"/> -->
-    <!-- <property name="fileExtensions" value="java"/> -->
-    <!-- </module> -->
-
     <module name="TreeWalker">
-
-        <!-- Checks for Javadoc comments. -->
-        <!-- See http://checkstyle.sf.net/config_javadoc.html -->
-        <module name="JavadocMethod">
-            <property name="severity" value="warning"/>
-            <property name="scope" value="public" />
-            <property name="minLineCount" value="10" />
-            <property name="allowMissingPropertyJavadoc" value="true" />
-        </module>
-        <module name="JavadocType">
-            <property name="severity" value="warning"/>
-            <property name="scope" value="public" />
-        </module>
-        <module name="JavadocVariable">
-            <property name="severity" value="warning"/>
-            <property name="scope" value="public" />
-        </module>
-        <module name="JavadocStyle">
-            <property name="severity" value="warning"/>
-            <property name="scope" value="public" />
-        </module>
 
         <!-- Checks for Naming Conventions. -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->
@@ -146,6 +118,7 @@
         <module name="EmptyStatement" />
         <module name="EqualsHashCode" />
         <module name="HiddenField">
+            <property name="ignoreConstructorParameter" value="true"/>
             <property name="ignoreSetter" value="true" />
         </module>
         <module name="IllegalInstantiation" />
@@ -165,7 +138,6 @@
         <!-- Miscellaneous other checks. -->
         <!-- See http://checkstyle.sf.net/config_misc.html -->
         <module name="ArrayTypeStyle" />
-        <module name="FinalParameters" />
         <module name="TodoComment" />
         <module name="UpperEll" />
 
