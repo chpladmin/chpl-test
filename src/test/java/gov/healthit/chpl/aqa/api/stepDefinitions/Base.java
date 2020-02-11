@@ -1,10 +1,12 @@
 package gov.healthit.chpl.aqa.api.stepDefinitions;
 
 import static io.restassured.RestAssured.given;
+
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 
 /** Base class for step definition files. */
 public class Base {
@@ -14,6 +16,8 @@ public class Base {
     private static String username;
     private static String password;
     private static final int HTTP_GOOD_RESPONSE = 200;
+    private static RequestSpecification request;
+    public static Response response;
 
     /** Default constructor. */
     public Base() {
@@ -73,4 +77,44 @@ public class Base {
         String auth = "Bearer " + token;
         return auth;
     }
+
+    public static RequestSpecification setValidHeaders(String role) {
+        request = given().header("API-KEY", Base.getApikey()).header("content-type", "application/json")
+                .header("Authorization", Base.getAuth(role));
+        return request;
+    }
+
+    public static Response sendRequest(String method, String resource, RequestSpecification request) {
+        if (method.equalsIgnoreCase("post")) {
+            response = request.when().post(resource);
+            } else if (method.equalsIgnoreCase("get")) {
+            response = request.when().get(resource);
+            } else if (method.equalsIgnoreCase("put")) {
+            response = request.when().put(resource);
+            } else if (method.equalsIgnoreCase("delete")) {
+            response = request.when().delete(resource);
+            }
+        return response;
+    }
+
+    public static Response sendRequestWithId(String method, int id, String pathparam, String resource) {
+        if (method.equalsIgnoreCase("get")) {
+            response = request.pathParams(pathparam, id).when().get(resource);
+            } else if (method.equalsIgnoreCase("put")) {
+            response = request.pathParams(pathparam, id).when().put(resource);
+            } else if (method.equalsIgnoreCase("delete")) {
+            response = request.pathParams(pathparam, id).when().delete(resource);
+            }
+        return response;
+    }
+
+    public static RequestSpecification setRequestBody(String method, String postPayload, String putPayload) {
+        if (method.equalsIgnoreCase("POST")) {
+            request.body(postPayload);
+            } else if (method.equalsIgnoreCase("PUT")) {
+            request.body(putPayload);
+            }
+        return request;
+    }
+
 }

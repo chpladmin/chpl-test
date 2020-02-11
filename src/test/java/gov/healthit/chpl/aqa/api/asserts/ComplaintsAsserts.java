@@ -11,20 +11,21 @@ public class ComplaintsAsserts {
     private static Response response;
     public static int postComplaintId;
     private List<Integer> idList;
+    private JsonPath js;
 
-    @Then("^I verify the (.+)$")
+    @Then("^I verify the (.+) for complaints controller$")
     public void apiReturnsCorrectStatusCode(int statuscode) throws Throwable {
         Assert.assertEquals(ComplaintsTest.response.getStatusCode(), statuscode);
     }
 
-    @Then("^I verify status code \"([^\"]*)\"$")
+    @Then("^I verify status code \"([^\"]*)\" for complaints end point response$")
     public void validateStatusCode(int statuscode) throws Throwable {
         response = ComplaintsTest.response.then().assertThat().statusCode(statuscode).extract().response();
     }
 
-    @Then("^I extract id from response body$")
+    @Then("^I extract complaint id from response body$")
     public void extractpostResponseBody() throws Throwable {
-        JsonPath js = response.jsonPath();
+        js = ComplaintsTest.response.jsonPath();
         postComplaintId = js.get("id");
     }
 
@@ -40,7 +41,7 @@ public class ComplaintsAsserts {
 
     @Then("^I validate response body has updated ONC complaint id$")
     public void validatePutResponse() throws Throwable {
-        JsonPath js = response.jsonPath();
+        js = response.jsonPath();
         String updatedvalue = "ONC-Updated";
         Assert.assertEquals(js.getString("oncComplaintId"), updatedvalue);
     }
