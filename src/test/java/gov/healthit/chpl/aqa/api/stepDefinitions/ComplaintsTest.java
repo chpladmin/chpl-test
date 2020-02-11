@@ -2,7 +2,6 @@ package gov.healthit.chpl.aqa.api.stepDefinitions;
 
 import static io.restassured.RestAssured.given;
 
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import gov.healthit.chpl.aqa.api.asserts.ComplaintsAsserts;

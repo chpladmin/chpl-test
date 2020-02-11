@@ -4,7 +4,6 @@ import java.util.List;
 import org.testng.Assert;
 import cucumber.api.java.en.Then;
 import gov.healthit.chpl.aqa.api.stepDefinitions.AnnoucementsTest;
-import gov.healthit.chpl.aqa.api.stepDefinitions.ComplaintsTest;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 

@@ -1,12 +1,9 @@
 package gov.healthit.chpl.aqa.api.stepDefinitions;
 
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import gov.healthit.chpl.aqa.api.asserts.AnnoucementsAsserts;
-import gov.healthit.chpl.aqa.api.asserts.ComplaintsAsserts;
 import gov.healthit.chpl.aqa.api.payLoad.AnnouncementsPayload;
-import gov.healthit.chpl.aqa.api.payLoad.ComplaintsPayload;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
