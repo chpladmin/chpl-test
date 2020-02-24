@@ -12,7 +12,7 @@ public class AnnoucementsTest {
     public static Response response;
     private RequestSpecification request;
 
-    @When("^I send \"([^\"]*)\" request to annoucement resource \"([^\"]*)\"$")
+    @When("^I send \"([^\"]*)\" request to announcement resource \"([^\"]*)\"$")
     public void sendRequestToAnnoucementResource(String method, String resource) {
         response = Base.sendRequest(method, resource, request);
     }

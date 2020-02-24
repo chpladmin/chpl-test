@@ -13,7 +13,7 @@ public class AnnoucementsAsserts {
     private List<Integer> idList;
     private JsonPath js;
 
-    @Then("^I extract annoucement id from response body$")
+    @Then("^I extract announcement id from response body$")
     public void extractAnnoucementid() {
         js = AnnoucementsTest.response.jsonPath();
         postAnnoucementId = js.get("id");
@@ -28,7 +28,7 @@ public class AnnoucementsAsserts {
         Assert.assertTrue(idList.contains(postAnnoucementId));
     }
 
-    @Then("^I validate response body has updated annoucement information$")
+    @Then("^I validate response body has updated announcement information$")
     public void validateUpdatedAnnoucement() {
         js = AnnoucementsTest.response.jsonPath();
         String updatedTitle = "Updated Title- API test annoucement";
@@ -41,7 +41,7 @@ public class AnnoucementsAsserts {
         Assert.assertEquals(js.getString("error"), errorMessage);
     }
 
-    @Then("^I verify status code \"([^\"]*)\" for annoucement end point response$")
+    @Then("^I verify status code \"([^\"]*)\" for announcement end point response$")
     public void validateStatusCode(int statuscode) {
         response = AnnoucementsTest.response.then().assertThat().statusCode(statuscode).extract().response();
     }

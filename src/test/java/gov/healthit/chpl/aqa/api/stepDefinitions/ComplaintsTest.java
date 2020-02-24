@@ -45,18 +45,9 @@ public class ComplaintsTest {
         request = Base.setRequestBody(method, ComplaintsPayload.postPayload(), ComplaintsPayload.putPayload());
     }
 
-//    @When("^I send POST request to resource \"([^\"]*)\"$")
-//    public void sendPostRequest(String resource) {
-//        response = request.when().post(resource);
-//    }
-
     @When("^I send \"([^\"]*)\" request to resource \"([^\"]*)\" with posted complaintId$")
     public void sendPutRequest(String method, String resource) {
         response = Base.sendRequestWithId(method, ComplaintsAsserts.postComplaintId, "complaintId", resource);
     }
 
-//    @When("^I send DELETE request to resource \"([^\"]*)\"$")
-//    public void sendDeleteRequest(String resource) {
-//        response = request.pathParams("complaintId", ComplaintsAsserts.postComplaintId).when().delete(resource);
-//    }
 }
