@@ -9,12 +9,12 @@ import io.restassured.specification.RequestSpecification;
 
 public class AnnoucementsTest {
 
-    public static Response response;
+    private static Response response;
     private RequestSpecification request;
 
     @When("^I send \"([^\"]*)\" request to announcement resource \"([^\"]*)\"$")
     public void sendRequestToAnnoucementResource(String method, String resource) {
-        response = Base.sendRequest(method, resource, request);
+        setResponse(Base.sendRequest(method, resource, request));
     }
 
     @Given("^I set Headers with API key, \"([^\"]*)\" authorization for announcements$")
@@ -33,7 +33,15 @@ public class AnnoucementsTest {
 
     @When("^I send \"([^\"]*)\" request to resource \"([^\"]*)\" with posted annoucementId$")
     public void sendRequestToAnnoucementResourceWithId(String method, String resource) {
-        response = Base.sendRequestWithId(method, AnnoucementsAsserts.postAnnoucementId, "announcementId", resource);
+        setResponse(Base.sendRequestWithId(method, AnnoucementsAsserts.getPostAnnoucementId(), "announcementId", resource));
+    }
+
+    public static Response getResponse() {
+        return response;
+    }
+
+    public static void setResponse(Response response) {
+        AnnoucementsTest.response = response;
     }
 
 }

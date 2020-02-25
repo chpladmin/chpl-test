@@ -71,7 +71,7 @@ public final class ComplaintsPayload {
     }
 
     public static String putPayload() {
-        int id = ComplaintsAsserts.postComplaintId;
+        int id = ComplaintsAsserts.getPostComplaintId();
         String payload = "{\r\n" + "    \"id\": \"" + id + "\",\r\n" + "    \"certificationBody\": {\r\n"
                 + "        \"id\": 6,\r\n" + "        \"acbCode\": \"07\",\r\n" + "        \"name\": \"ICSA Labs\",\r\n"
                 + "        \"website\": \"https://www.icsalabs.com\",\r\n" + "        \"address\": {\r\n"

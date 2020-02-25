@@ -12,8 +12,16 @@ import io.restassured.specification.RequestSpecification;
 
 public class ComplaintsTest {
 
-    public static Response response;
+    private static Response response;
     private RequestSpecification request;
+
+    public static Response getResponse() {
+        return response;
+    }
+
+    public void setResponse(Response response) {
+        this.response = response;
+    }
 
     @Given("^I set base URL$")
     public void setURL() {
@@ -32,7 +40,7 @@ public class ComplaintsTest {
 
     @When("^I send \"([^\"]*)\" request to complaints resource \"([^\"]*)\"$")
     public void sendGetRequest(String method, String resource) {
-        response = Base.sendRequest(method, resource, request);
+        setResponse(Base.sendRequest(method, resource, request));
     }
 
     @Given("^I set Headers with API key, \"([^\"]*)\" authorization for complaints$")
@@ -47,7 +55,7 @@ public class ComplaintsTest {
 
     @When("^I send \"([^\"]*)\" request to resource \"([^\"]*)\" with posted complaintId$")
     public void sendPutRequest(String method, String resource) {
-        response = Base.sendRequestWithId(method, ComplaintsAsserts.postComplaintId, "complaintId", resource);
+        setResponse(Base.sendRequestWithId(method, ComplaintsAsserts.getPostComplaintId(), "complaintId", resource));
     }
 
 }

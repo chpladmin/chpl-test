@@ -22,7 +22,7 @@ public final class AnnouncementsPayload {
     }
 
     public static String putPayload() {
-        int id = AnnoucementsAsserts.postAnnoucementId;
+        int id = AnnoucementsAsserts.getPostAnnoucementId();
         String payload = "{\n"
                + "  \"creationDate\": \"2020-02-04T15:29:32.175Z\",\n"
                + "  \"id\": \"" + id + "\",\n"

@@ -17,7 +17,7 @@ public class Base {
     private static String password;
     private static final int HTTP_GOOD_RESPONSE = 200;
     private static RequestSpecification request;
-    public static Response response;
+    private static Response response;
 
     /** Default constructor. */
     public Base() {
@@ -40,6 +40,13 @@ public class Base {
         this.apikey = apikey;
     }
 
+    public static Response getResponse() {
+        return response;
+    }
+
+    public void setResponse(Response response) {
+        this.response = response;
+    }
     public static String getAuth(String role) {
         switch (role) {
         case "ROLE_ADMIN":
