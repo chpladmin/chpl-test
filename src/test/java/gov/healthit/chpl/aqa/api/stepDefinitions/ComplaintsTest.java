@@ -2,7 +2,6 @@ package gov.healthit.chpl.aqa.api.stepDefinitions;
 
 import static io.restassured.RestAssured.given;
 
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import gov.healthit.chpl.aqa.api.asserts.ComplaintsAsserts;
@@ -13,8 +12,16 @@ import io.restassured.specification.RequestSpecification;
 
 public class ComplaintsTest {
 
-    public static Response response;
+    private static Response response;
     private RequestSpecification request;
+
+    public static Response getResponse() {
+        return response;
+    }
+
+    public void setResponse(Response response) {
+        this.response = response;
+    }
 
     @Given("^I set base URL$")
     public void setURL() {
@@ -31,38 +38,24 @@ public class ComplaintsTest {
         }
     }
 
-    @When("^I send GET request to complaints resource \"([^\"]*)\"$")
-    public void sendGetRequest(String resource) {
-        response = request.when().get(resource);
+    @When("^I send \"([^\"]*)\" request to complaints resource \"([^\"]*)\"$")
+    public void sendGetRequest(String method, String resource) {
+        setResponse(Base.sendRequest(method, resource, request));
     }
 
-    @Given("^I set Headers with API key, \"([^\"]*)\" authorization$")
-    public void setValidHeaders(String role) {
-        request = given().header("API-KEY", Base.getApikey()).header("content-type", "application/json")
-                .header("Authorization", Base.getAuth(role));
+    @Given("^I set Headers with API key, \"([^\"]*)\" authorization for complaints$")
+    public void setHeader(String role) {
+        request = Base.setValidHeaders(role);
     }
 
-    @And("^I set \"([^\"]*)\" request body$")
+    @Given("^I set \"([^\"]*)\" complaints request body$")
     public void setRequestBody(String method) {
-        if (method.contains("POST")) {
-            request.body(ComplaintsPayload.postPayload());
-        } else if (method.contains("PUT")) {
-            request.body(ComplaintsPayload.putPayload());
-        }
+        request = Base.setRequestBody(method, ComplaintsPayload.postPayload(), ComplaintsPayload.putPayload());
     }
 
-    @When("^I send POST request to resource \"([^\"]*)\"$")
-    public void sendPostRequest(String resource) {
-        response = request.when().post(resource);
+    @When("^I send \"([^\"]*)\" request to resource \"([^\"]*)\" with posted complaintId$")
+    public void sendPutRequest(String method, String resource) {
+        setResponse(Base.sendRequestWithId(method, ComplaintsAsserts.getPostComplaintId(), "complaintId", resource));
     }
 
-    @When("^I send PUT request to resource \"([^\"]*)\" with posted complaintId$")
-    public void sendPutRequest(String resource) {
-        response = request.pathParams("complaintId", ComplaintsAsserts.postComplaintId).when().put(resource);
-    }
-
-    @When("^I send DELETE request to resource \"([^\"]*)\"$")
-    public void sendDeleteRequest(String resource) {
-        response = request.pathParams("complaintId", ComplaintsAsserts.postComplaintId).when().delete(resource);
-    }
 }
