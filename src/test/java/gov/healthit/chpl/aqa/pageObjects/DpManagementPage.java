@@ -34,7 +34,7 @@ public final class DpManagementPage {
      * @return button element
      */
     public static WebElement chooseFileButtonListingUpload(final WebDriver driver) {
-        return driver.findElement(By.xpath("(//input[@id='ngf-upload-button'])[2]"));
+        return driver.findElement(By.id("ngf-upload-button-listing"));
     }
 
     /**
