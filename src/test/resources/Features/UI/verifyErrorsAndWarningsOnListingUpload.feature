@@ -9,6 +9,7 @@ Feature: Verify expected errors and warnings display on inspect screen after lit
          OCD-2697-Handle bad characters on upload in number fields
          OCD-2562-Retire a Test Tool
          OCD-2559-Handle invalid certificaion date in upload file
+         OCD-3110-Display better error message on upload when QMS Standard exceeds allowed length
             
   Scenario Outline: Verify warnings for duplicate input values in applicable fields on upload-inspect for 2015 listings
     Given I'm logged in as "ROLE_ACB"
@@ -78,7 +79,8 @@ Feature: Verify expected errors and warnings display on inspect screen after lit
     |An unrecognized character was found in Test Task "A1.3" "Task Errors Standard Deviation" "9.75�". The value must be only a numeric value. You can correct it within the field itself on the Edit Certified Product screen or modify it in the csv file and upload again.|Task Errors Standard Deviation|
     |An unrecognized character was found in Test Task "A1.3" "Task Rating Standard Deviation" "1.00�". The value must be only a numeric value. You can correct it within the field itself on the Edit Certified Product screen or modify it in the csv file and upload again.|Task Rating Standard Deviation|
     |An unrecognized character was found in Test Task "A1.3" "Task Errors" "9.75�". The value must be only a numeric value. You can correct it within the field itself on the Edit Certified Product screen or modify it in the csv file and upload again.|Task Errors value|
-    |Test Tool 'CDC's NHSN CDA Validator' can not be used for criteria '170.315 (b)(1)', as it is a retired tool, and this Certified Product does not carry ICS.|Test Tool|    
+    |Test Tool 'CDC's NHSN CDA Validator' can not be used for criteria '170.315 (b)(1)', as it is a retired tool, and this Certified Product does not carry ICS.|Test Tool|
+    |You have exceeded the max length, 255 characters, for the QMS Standard|QMS Standard|    
     
     Scenario Outline: Verify warnings for bad input values in Test task and Participant fields on upload-inspect for 2015 listings
     Given I'm logged in as "ROLE_ACB"
